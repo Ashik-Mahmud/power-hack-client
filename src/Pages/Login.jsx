@@ -1,11 +1,40 @@
+import axios from "axios";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 const Login = () => {
+  /* Handle Login Form  */
+  const handleLoginForm = async (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    /* Validations */
+    if (!email) return toast.error("Name field is required.");
+    if (!password) return toast.error("Password field is required.");
+    /* Call function for login */
+    await axios
+      .get(
+        `http://localhost:5000/users/login?email=${email}&&password=${password}`
+      )
+      .then((res) => {
+        const result = res.data;
+        if (result.success) {
+          toast.success(result.message);
+        } else {
+          toast.error(result.message);
+        }
+      });
+  };
+
   return (
     <section
       id="login"
       className="grid place-items-center h-[86vh] font-poppins"
     >
-      <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded-lg">
+      <form
+        onSubmit={handleLoginForm}
+        className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded-lg"
+      >
         <div className="card-body">
           <h3 className="text-lg font-poppins font-semibold">
             Login Into Account
@@ -18,6 +47,7 @@ const Login = () => {
               type="text"
               placeholder="email"
               className="input input-bordered"
+              name="email"
             />
           </div>
           <div className="form-control">
@@ -25,9 +55,10 @@ const Login = () => {
               <span className="label-text">Password</span>
             </label>
             <input
-              type="text"
+              type="password"
               placeholder="password"
               className="input input-bordered"
+              name="password"
             />
             <label className="label">
               <a href="/" className="label-text-alt link link-hover">
@@ -48,7 +79,7 @@ const Login = () => {
             </Link>
           </label>
         </div>
-      </div>
+      </form>
     </section>
   );
 };
