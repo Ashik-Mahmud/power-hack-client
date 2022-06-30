@@ -1,6 +1,18 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import BillingRow from "../Components/BillingRow";
+import useUsers from "../Hooks/useUsers";
 import Modal from "./../Components/Modal";
 const BillingList = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("accessToken")) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  const [users] = useUsers();
+
   return (
     <section id="billing" className="p-10 ">
       <div className="container mx-auto font-poppins shadow p-5 rounded">
