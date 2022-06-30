@@ -1,11 +1,60 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
+  const navigate = useNavigate();
+  /* Handle Register form  */
+  const handleRegisterForm = async (event) => {
+    event.preventDefault();
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    /* Validations */
+    if (!name) {
+      return toast.error("Name field is required.");
+    } else if (!email) {
+      return toast.error("Email field is required");
+    } else if (!password) {
+      return toast.error("Password field is required.");
+    } else if (password.length < 6) {
+      return toast.error("Provide strong password more than 6 characters.");
+    }
+
+    /* Actions here */
+    const registerData = {
+      name,
+      email,
+      password,
+    };
+    console.log(registerData);
+    await axios
+      .post("http://localhost:5000/users/register", registerData)
+      .then((res) => {
+        const result = res.data;
+        if (result.success) {
+          toast.success(result.message);
+          toast.success("Now You can login here With You account.");
+          navigate("/login");
+          event.target.reset();
+        } else {
+          toast.error(result.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
+
   return (
     <section
       id="register"
       className="grid place-items-center h-[86vh] font-poppins"
     >
-      <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded">
+      <form
+        onSubmit={handleRegisterForm}
+        className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded"
+      >
         <div className="card-body">
           <h3 className="text-lg font-poppins font-semibold">
             Register Into Account
@@ -18,6 +67,7 @@ const Register = () => {
               type="text"
               placeholder="Name"
               className="input input-bordered"
+              name="name"
             />
           </div>
           <div className="form-control">
@@ -25,9 +75,10 @@ const Register = () => {
               <span className="label-text">Email</span>
             </label>
             <input
-              type="text"
+              type="email"
               placeholder="email"
               className="input input-bordered"
+              name="email"
             />
           </div>
           <div className="form-control">
@@ -35,9 +86,10 @@ const Register = () => {
               <span className="label-text">Password</span>
             </label>
             <input
-              type="text"
+              type="password"
               placeholder="password"
               className="input input-bordered"
+              name="password"
             />
           </div>
           <div className="form-control mt-6">
@@ -53,7 +105,7 @@ const Register = () => {
             </Link>
           </label>
         </div>
-      </div>
+      </form>
     </section>
   );
 };
