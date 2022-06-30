@@ -1,26 +1,31 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 
 const useAuth = () => {
   const [auth, setAuth] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
+  const { isLoading, data, refetch } = useQuery(
+    "AuthData",
+    async () =>
+      await fetch(`http://localhost:5000/users/register`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }).then((res) => res.json())
+  );
+
   useEffect(() => {
-    fetch(`http://localhost:5000/users/register`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.success) {
-          setAuth(true);
-          setLoading(true);
-          setUser(data.user);
-        }
-      });
-  }, []);
-  return { auth, loading, user };
+    if (isLoading) return;
+
+    if (data?.user?.isLogin) {
+      setAuth(true);
+      setUser(data?.user);
+    } else {
+      setAuth(false);
+    }
+  }, [data, isLoading]);
+
+  return { auth, refetch, user };
 };
 
 export default useAuth;

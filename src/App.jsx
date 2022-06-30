@@ -10,11 +10,12 @@ import Footer from "./Shared/Footer";
 import Header from "./Shared/Header";
 export const AuthContext = createContext(null);
 function App() {
-  const { auth } = useAuth();
+  const { auth, refetch, user } = useAuth();
+
   return (
     <>
       <Toaster />
-      <AuthContext.Provider value={{ auth }}>
+      <AuthContext.Provider value={{ auth, user, refetch }}>
         <Header />
         <Routes>
           <Route

@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
 const Login = () => {
   const navigate = useNavigate();
-  const { auth } = useContext(AuthContext);
+  const { auth, refetch } = useContext(AuthContext);
   useEffect(() => {
     if (auth) {
       navigate("/");
@@ -39,6 +39,7 @@ const Login = () => {
                 toast.success("Login Successfully done");
                 localStorage.setItem("accessToken", token);
                 navigate("/");
+                refetch();
               }
             });
         } else {
