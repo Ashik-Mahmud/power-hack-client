@@ -1,8 +1,8 @@
 import useAuth from "../Hooks/useAuth";
 
 const Header = () => {
-  const [auth] = useAuth();
-  console.log(auth);
+  const { auth, user } = useAuth();
+  console.log(auth, user);
   return (
     <header className="navbar bg-base-100 shadow">
       <div className="container mx-auto">

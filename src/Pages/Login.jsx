@@ -1,8 +1,17 @@
 import axios from "axios";
+import { useContext, useEffect } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../App";
 const Login = () => {
   const navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
+  useEffect(() => {
+    if (auth) {
+      navigate("/");
+    }
+  }, [auth, navigate]);
+
   /* Handle Login Form  */
   const handleLoginForm = async (event) => {
     event.preventDefault();
