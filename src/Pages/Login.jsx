@@ -1,7 +1,8 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   /* Handle Login Form  */
   const handleLoginForm = async (event) => {
     event.preventDefault();
@@ -17,11 +18,22 @@ const Login = () => {
         `http://localhost:5000/users/login?email=${email}&&password=${password}`
       )
       .then((res) => {
-        const result = res.data;
-        if (result.success) {
-          toast.success(result.message);
+        const { token, email, success, message } = res.data;
+        if (success) {
+          axios
+            .patch(`http://localhost:5000/users/register?email=${email}`, {
+              isLogin: true,
+            })
+            .then((res) => {
+              const { success } = res.data;
+              if (success) {
+                toast.success("Login Successfully done");
+                localStorage.setItem("accessToken", token);
+                navigate("/");
+              }
+            });
         } else {
-          toast.error(result.message);
+          toast.error(message);
         }
       });
   };
