@@ -5,7 +5,7 @@ const modal = () => {
       <div className="modal font-poppins">
         <div className="modal-box relative">
           <label
-            for="my-modal-3"
+            htmlFor="my-modal-3"
             className="btn btn-sm btn-circle absolute right-2 top-2"
           >
             ✕

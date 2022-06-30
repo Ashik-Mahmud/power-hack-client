@@ -24,7 +24,10 @@ const BillingList = () => {
               </div>
             </div>
             <div className="flex-none gap-2">
-              <label for="my-modal-3" className="btn btn-primary rounded-md">
+              <label
+                htmlFor="my-modal-3"
+                className="btn btn-primary rounded-md"
+              >
                 Add New Billing +
               </label>
             </div>
