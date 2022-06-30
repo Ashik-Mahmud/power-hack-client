@@ -1,5 +1,5 @@
 import BillingRow from "../Components/BillingRow";
-
+import Modal from "./../Components/Modal";
 const BillingList = () => {
   return (
     <section id="billing" className="p-10 ">
@@ -24,9 +24,9 @@ const BillingList = () => {
               </div>
             </div>
             <div className="flex-none gap-2">
-              <button className="btn btn-primary rounded-md">
+              <label for="my-modal-3" className="btn btn-primary rounded-md">
                 Add New Billing +
-              </button>
+              </label>
             </div>
           </div>
         </div>
@@ -85,6 +85,7 @@ const BillingList = () => {
           </div>
         </div>
       </div>
+      <Modal />
     </section>
   );
 };
