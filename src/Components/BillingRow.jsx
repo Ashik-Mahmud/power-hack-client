@@ -10,10 +10,10 @@ const BillingRow = ({
   return (
     <tr>
       <th>{_id || "Loading..."}</th>
-      <td>{name || "Loading..."}</td>
-      <td>{email || "Loading..."}</td>
-      <td>{phone || "Loading..."}</td>
-      <td>{paid_amount || "Loading..."}</td>
+      <td>{name}</td>
+      <td>{email}</td>
+      <td>{phone}</td>
+      <td>{paid_amount}</td>
       <td>
         {" "}
         <label
