@@ -25,10 +25,10 @@ This is Power hack Application using MERN Technologies
 
 ## Necessary Links
 
-- [Client Link] (https://github.com/Ashik-Mahmud/power-hack-client)
+- [Client Link](https://github.com/Ashik-Mahmud/power-hack-client)
 - [Client Live Link](https://power-hack-client.netlify.app/)
-- [Server Link] (https://github.com/Ashik-Mahmud/power-hack-server)
-- [Server Live Link] (https://power-hack-server.herokuapp.com/)
+- [Server Link](https://github.com/Ashik-Mahmud/power-hack-server)
+- [Server Live Link](https://power-hack-server.herokuapp.com/)
 
 ## Preview Screenshot
 
