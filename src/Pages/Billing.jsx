@@ -11,6 +11,7 @@ const BillingList = () => {
   const navigate = useNavigate();
   const { user, setPaidTotal } = useContext(AuthContext);
   const [billings, setBillings] = useState([]);
+  const [searchedBillings, setSearchedBillings] = useState([]);
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
@@ -64,6 +65,7 @@ const BillingList = () => {
 
   useEffect(() => {
     setBillings(data?.data);
+    setSearchedBillings(data?.data);
     /* Paid Total */
     const paidTotal = data?.data.reduce(
       (acc, item) => acc + item.paid_amount,
@@ -71,6 +73,19 @@ const BillingList = () => {
     );
     setPaidTotal(paidTotal);
   }, [data, setPaidTotal]);
+
+  /* SEARCH BILLING USING FULL NAME, EMAIL, PHONE NUMBER */
+  const handleSearch = async (event) => {
+    console.log(event.target.value);
+    const searchValue = event.target.value.toLowerCase();
+    const filteredBilling = billings.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchValue) ||
+        item.email.toLowerCase().includes(searchValue) ||
+        item.phone.toLowerCase().includes(searchValue)
+    );
+    setSearchedBillings(filteredBilling);
+  };
 
   return (
     <section id="billing" className="p-10 ">
@@ -91,6 +106,7 @@ const BillingList = () => {
                   type="text"
                   placeholder="Search"
                   className="input input-bordered "
+                  onChange={handleSearch}
                 />
               </div>
             </div>
@@ -106,7 +122,7 @@ const BillingList = () => {
         </div>
         {/* Billing Header end */}
         <div className="overflow-x-auto my-6">
-          {data?.data?.length > 0 ? (
+          {searchedBillings?.length > 0 ? (
             !isLoading ? (
               <>
                 {" "}
@@ -123,7 +139,7 @@ const BillingList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.data?.map((item, index) => (
+                    {searchedBillings?.map((item, index) => (
                       <BillingRow
                         key={item._id}
                         {...item}
@@ -134,7 +150,7 @@ const BillingList = () => {
                 </table>
                 <div
                   className={`pagination mt-5  justify-end items-center gap-1 pt-4  ${
-                    data?.data?.length > 10 ? "flex" : "hidden"
+                    searchedBillings?.length > 10 ? "flex" : "hidden"
                   }`}
                 >
                   <button className="btn btn-square btn-sm btn-primary hover:text-white">
