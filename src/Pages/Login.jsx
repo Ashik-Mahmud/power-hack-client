@@ -51,7 +51,7 @@ const Login = () => {
   return (
     <section
       id="login"
-      className="grid place-items-center h-[86vh] font-poppins"
+      className="grid place-items-center sm:h-[85vh] h-screen font-poppins"
     >
       <form
         onSubmit={handleLoginForm}

@@ -98,7 +98,7 @@ const BillingList = () => {
   };
 
   return (
-    <section id="billing" className="p-10 h-[90vh]">
+    <section id="billing" className="p-10 h-screen">
       <div className="container mx-auto font-poppins shadow p-5 rounded">
         <div className="title text-center mb-5">
           <h3 className="text-3xl font-poppins font-semibold">Billing Lists</h3>
@@ -132,7 +132,7 @@ const BillingList = () => {
           </div>
         </div>
         {/* Billing Header end */}
-        <div className="overflow-x-auto my-6">
+        <div className="overflow-x-auto my-6 overflow-y-hidden">
           {searchedBillings?.length > 0 ? (
             !isLoading ? (
               <>

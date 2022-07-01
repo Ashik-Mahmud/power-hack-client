@@ -5,7 +5,7 @@ import BillingRow from "./BillingRow";
 function Items({ currentItems, editingBillings, deleteBilling }) {
   return (
     <>
-      <table className="table w-full table-compact">
+      <table className="table w-full table-compact ">
         <thead>
           <tr>
             <th>Billing ID</th>
@@ -71,13 +71,19 @@ export default function PaginatedItems({
         deleteBilling={deleteBilling}
       />
       <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
+        breakLabel="...."
+        nextLabel="→"
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={pageCount}
-        previousLabel="< previous"
+        previousLabel="←"
         renderOnZeroPageCount={null}
+        disabledClassName="pointer-events-none opacity-60"
+        containerClassName="pagination flex justify-center items-center mt-6 gap-3"
+        pageLinkClassName="pagination-link  w-8 h-8 grid place-items-center bg-base-300  "
+        nextLinkClassName="pagination-link text-3xl"
+        previousLinkClassName="pagination-link text-3xl"
+        activeLinkClassName="pagination-link active bg-primary text-white"
       />
     </>
   );
