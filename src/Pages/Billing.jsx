@@ -58,14 +58,11 @@ const BillingList = () => {
   const { data, isLoading, refetch } = useQuery(
     ["billingsData", user],
     async () =>
-      await fetch(
-        `https://power-hack-storage.herokuapp.com/billing-list?email=${user.email}`,
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      ).then((res) => res.json())
+      await fetch(`http://localhost:5000/billing-list?email=${user.email}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }).then((res) => res.json())
   );
 
   useEffect(() => {
@@ -101,7 +98,7 @@ const BillingList = () => {
   };
 
   return (
-    <section id="billing" className="p-10 ">
+    <section id="billing" className="p-10 h-[87vh]">
       <div className="container mx-auto font-poppins shadow p-5 rounded">
         <div className="title text-center mb-5">
           <h3 className="text-3xl font-poppins font-semibold">Billing Lists</h3>

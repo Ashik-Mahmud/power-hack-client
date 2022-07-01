@@ -13,10 +13,10 @@ function App() {
   const { auth, refetch, user } = useAuth();
   const [paidTotal, setPaidTotal] = useState(0);
   const [isDark, setIsDark] = useState(false);
-  console.log(isDark);
+
   return (
     <>
-      <section data-theme={isDark ? "night" : "lofi"}>
+      <section data-theme={isDark ? "lofi" : "night"}>
         <Toaster />
         <AuthContext.Provider
           value={{ auth, user, refetch, setPaidTotal, paidTotal, setIsDark }}

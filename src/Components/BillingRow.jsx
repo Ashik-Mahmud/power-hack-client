@@ -9,7 +9,7 @@ const BillingRow = ({
 }) => {
   return (
     <tr>
-      <th>{_id || "Loading..."}</th>
+      <th>{_id.slice(0, 12) || "Loading..."}</th>
       <td>{name}</td>
       <td>{email}</td>
       <td>{phone}</td>
