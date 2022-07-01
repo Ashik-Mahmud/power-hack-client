@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "./../App";
-const Modal = () => {
+const Modal = ({ refetch }) => {
   const { user } = useContext(AuthContext);
   /* Handle Billing data */
   const handleBilling = async (event) => {
@@ -57,6 +57,7 @@ const Modal = () => {
         if (data.success) {
           toast.success(data.message);
           event.target.reset();
+          refetch();
         }
       });
   };

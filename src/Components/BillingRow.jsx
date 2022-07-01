@@ -1,4 +1,11 @@
-const BillingRow = ({ _id, name, email, phone, paid_amount }) => {
+const BillingRow = ({
+  _id,
+  name,
+  email,
+  phone,
+  paid_amount,
+  deleteBilling,
+}) => {
   return (
     <tr>
       <th>{_id || "Loading..."}</th>
@@ -10,7 +17,12 @@ const BillingRow = ({ _id, name, email, phone, paid_amount }) => {
         <button className="btn btn-sm btn-secondary">Edit</button>
       </td>
       <td>
-        <button className="btn btn-sm btn-error">&times;</button>
+        <button
+          onClick={() => deleteBilling(_id)}
+          className="btn btn-sm btn-error"
+        >
+          &times;
+        </button>
       </td>
     </tr>
   );

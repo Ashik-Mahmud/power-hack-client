@@ -25,9 +25,9 @@ const Header = () => {
   };
   return (
     <header className="navbar bg-base-100 shadow">
-      <div className="container mx-auto">
-        <div className="navbar bg-base-100">
-          <div className="flex-1">
+      <div className="container mx-auto justify-center">
+        <div className="flex items-center gap-3 flex-col sm:navbar bg-base-100 ">
+          <div className="sm:flex-1">
             <a
               href="/"
               className="btn btn-ghost font-raleway font-bold normal-case text-xl"
@@ -43,7 +43,7 @@ const Header = () => {
               </div>
             )}
           </div>
-          <div className="flex-none gap-2">
+          <div className="sm:flex-none gap-2">
             {auth ? (
               <div className="users-info flex items-center gap-3">
                 <div className="flex items-center gap-3">

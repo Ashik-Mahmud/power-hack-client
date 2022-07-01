@@ -1,6 +1,9 @@
+import axios from "axios";
 import { useContext, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../App";
 import BillingRow from "../Components/BillingRow";
 import Modal from "./../Components/Modal";
@@ -14,9 +17,40 @@ const BillingList = () => {
     }
   }, [navigate]);
 
-  /* Getting the list of billing items based on Users */
+  /*   Handle Delete Billings  */
+  const deleteBilling = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(
+            `http://localhost:5000/delete-billing?id=${id}&&email=${user.email}`,
+            {
+              headers: {
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              },
+            }
+          )
+          .then((res) => {
+            const result = res.data;
+            if (result.success) {
+              Swal.fire("Deleted!", result.message, "success");
+              refetch();
+            }
+          })
+          .catch((err) => toast.error(err.message));
+      }
+    });
+  }; /* Getting the list of billing items based on Users */
 
-  const { data, isLoading, error } = useQuery(
+  const { data, isLoading, refetch } = useQuery(
     "billingsData",
     async () =>
       await fetch(`http://localhost:5000/billing-list?email=${user.email}`, {
@@ -25,8 +59,7 @@ const BillingList = () => {
         },
       }).then((res) => res.json())
   );
-
-  console.log(data);
+  console.log(data, user.email);
 
   return (
     <section id="billing" className="p-10 ">
@@ -37,20 +70,20 @@ const BillingList = () => {
         </div>
         {/* Billing Header  */}
         <div className="header bg-slate-100 rounded-md">
-          <div className="navbar">
-            <div className="flex-1 ">
+          <div className="flex-wrap gap-4 navbar">
+            <div className="sm:flex-1 flex-col sm:flex-row w-full">
               <a href="/" className="btn btn-ghost normal-case text-xl mr-3">
                 Billing List
               </a>
-              <div className="form-control">
+              <div className="form-control ">
                 <input
                   type="text"
                   placeholder="Search"
-                  className="input input-bordered"
+                  className="input input-bordered "
                 />
               </div>
             </div>
-            <div className="flex-none gap-2">
+            <div className="flex-none gap-2 justify-center items-center w-full sm:justify-start sm:items-start sm:w-auto">
               <label
                 htmlFor="my-modal-3"
                 className="btn btn-primary rounded-md"
@@ -62,8 +95,8 @@ const BillingList = () => {
         </div>
         {/* Billing Header end */}
         <div className="overflow-x-auto my-6">
-          {!isLoading ? (
-            data?.data?.length > 0 ? (
+          {data?.data?.length > 0 ? (
+            !isLoading ? (
               <>
                 {" "}
                 <table className="table w-full table-compact">
@@ -80,11 +113,19 @@ const BillingList = () => {
                   </thead>
                   <tbody>
                     {data?.data?.map((item, index) => (
-                      <BillingRow key={item._id} {...item} />
+                      <BillingRow
+                        key={item._id}
+                        {...item}
+                        deleteBilling={deleteBilling}
+                      />
                     ))}
                   </tbody>
                 </table>
-                <div className="pagination mt-5 flex justify-end items-center gap-1 pt-4">
+                <div
+                  className={`pagination mt-5  justify-end items-center gap-1 pt-4 hidden ${
+                    data?.data?.length > 10 && "flex"
+                  }`}
+                >
                   <button className="btn btn-square btn-sm btn-primary hover:text-white">
                     1
                   </button>
@@ -112,18 +153,24 @@ const BillingList = () => {
                 </div>
               </>
             ) : (
-              <div className="text-center py-10">
-                <h3 className="text-2xl">No Billings Found yet.</h3>
+              <div className="text-center py-5">
+                <h3 className="text-xl font-bold">Loading...</h3>
               </div>
             )
           ) : (
-            <div className="py-5 text-center">
-              <h3 className="text-xl font-bold">Loading...</h3>
+            <div className="text-center py-10">
+              <h3 className="text-2xl">No Billings Found yet.</h3>
+              <label
+                htmlFor="my-modal-3"
+                className="btn btn-primary rounded-md mt-7"
+              >
+                Add New Billing +
+              </label>
             </div>
           )}
         </div>
       </div>
-      <Modal />
+      <Modal refetch={refetch} />
     </section>
   );
 };
