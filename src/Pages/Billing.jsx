@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../App";
-import BillingRow from "../Components/BillingRow";
+import PaginatedItems from "../Components/BillingsPagination";
 import Modal from "./../Components/Modal";
 const BillingList = () => {
   const navigate = useNavigate();
@@ -137,59 +137,12 @@ const BillingList = () => {
             !isLoading ? (
               <>
                 {" "}
-                <table className="table w-full table-compact">
-                  <thead>
-                    <tr>
-                      <th>Billing ID</th>
-                      <th>Full Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th width="150">Paid Amount</th>
-                      <th width="80">Edit</th>
-                      <th width="80">Delete</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {searchedBillings?.map((item, index) => (
-                      <BillingRow
-                        key={item._id}
-                        {...item}
-                        deleteBilling={deleteBilling}
-                        editingBilling={editingBillings}
-                      />
-                    ))}
-                  </tbody>
-                </table>
-                <div
-                  className={`pagination mt-5  justify-end items-center gap-1 pt-4  ${
-                    searchedBillings?.length > 10 ? "flex" : "hidden"
-                  }`}
-                >
-                  <button className="btn btn-square btn-sm btn-primary hover:text-white">
-                    1
-                  </button>
-                  <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
-                    2
-                  </button>
-                  <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
-                    3
-                  </button>
-                  <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
-                    4
-                  </button>
-                  <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
-                    5
-                  </button>
-                  <select
-                    name=""
-                    className="btn btn-sm btn-outline hover:bg-white hover:text-black active:outline-none focus:outline-none"
-                    id=""
-                  >
-                    <option value="10">10</option>
-                    <option value="10">20</option>
-                    <option value="10">30</option>
-                  </select>
-                </div>
+                <PaginatedItems
+                  searchedBillings={searchedBillings}
+                  itemsPerPage={10}
+                  editingBillings={editingBillings}
+                  deleteBilling={deleteBilling}
+                />
               </>
             ) : (
               <div className="text-center py-5">
