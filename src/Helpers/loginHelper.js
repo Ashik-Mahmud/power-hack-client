@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 const LoginHelper = (email, token, data) =>{
     
     axios
-    .patch(`http://localhost:5000/users/register?email=${email}`, data)
+    .patch(`https://power-hack-storage.herokuapp.com/users/register?email=${email}`, data)
     .then((res) => {
       const { success } = res.data;
       if (success) {

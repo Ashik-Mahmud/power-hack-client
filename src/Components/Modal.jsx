@@ -44,7 +44,7 @@ const Modal = ({ refetch, isUpdateForm, oldData }) => {
       },
     };
 
-    await fetch(`http://localhost:5000/add-billing`, {
+    await fetch(`https://power-hack-storage.herokuapp.com/add-billing`, {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -97,7 +97,7 @@ const Modal = ({ refetch, isUpdateForm, oldData }) => {
       paid_amount: parseInt(paidAmount),
     };
     await fetch(
-      `http://localhost:5000/update-billing?id=${oldData.id}&&email=${user.email}`,
+      `https://power-hack-storage.herokuapp.com/update-billing?id=${oldData.id}&&email=${user.email}`,
       {
         method: "PATCH",
         headers: {

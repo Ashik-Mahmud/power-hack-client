@@ -10,9 +10,12 @@ const Header = () => {
   /* Handle Log Out  */
   const handleLogOut = async () => {
     axios
-      .patch(`http://localhost:5000/users/register?email=${user?.email}`, {
-        isLogin: false,
-      })
+      .patch(
+        `https://power-hack-storage.herokuapp.com/users/register?email=${user?.email}`,
+        {
+          isLogin: false,
+        }
+      )
       .then((res) => {
         const { success } = res.data;
         if (success) {

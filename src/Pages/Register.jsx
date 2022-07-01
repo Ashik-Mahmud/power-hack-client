@@ -38,7 +38,10 @@ const Register = () => {
     };
 
     await axios
-      .post("http://localhost:5000/users/register", registerData)
+      .post(
+        "https://power-hack-storage.herokuapp.com/users/register",
+        registerData
+      )
       .then((res) => {
         const result = res.data;
         if (result.success) {

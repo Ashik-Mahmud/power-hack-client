@@ -35,7 +35,7 @@ const BillingList = () => {
       if (result.isConfirmed) {
         axios
           .delete(
-            `http://localhost:5000/delete-billing?id=${id}&&email=${user.email}`,
+            `https://power-hack-storage.herokuapp.com/delete-billing?id=${id}&&email=${user.email}`,
             {
               headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -58,11 +58,14 @@ const BillingList = () => {
   const { data, isLoading, refetch } = useQuery(
     ["billingsData", user],
     async () =>
-      await fetch(`http://localhost:5000/billing-list?email=${user.email}`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }).then((res) => res.json())
+      await fetch(
+        `https://power-hack-storage.herokuapp.com/billing-list?email=${user.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      ).then((res) => res.json())
   );
 
   useEffect(() => {
