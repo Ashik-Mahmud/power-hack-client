@@ -25,8 +25,8 @@ const Header = () => {
   return (
     <header className="navbar bg-base-100 shadow">
       <div className="container mx-auto justify-center">
-        <div className="flex items-center gap-3 flex-col sm:navbar bg-base-100 ">
-          <div className="sm:flex-1">
+        <div className="flex items-center gap-3 flex-col sm:flex-row sm:items-start  sm:navbar bg-base-100 ">
+          <div className="flex-1 flex items-center gap-2 flex-wrap">
             <a
               href="/"
               className="btn btn-ghost font-raleway font-bold normal-case text-xl"

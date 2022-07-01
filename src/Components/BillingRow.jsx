@@ -5,6 +5,7 @@ const BillingRow = ({
   phone,
   paid_amount,
   deleteBilling,
+  editingBilling,
 }) => {
   return (
     <tr>
@@ -14,7 +15,14 @@ const BillingRow = ({
       <td>{phone || "Loading..."}</td>
       <td>{paid_amount || "Loading..."}</td>
       <td>
-        <button className="btn btn-sm btn-secondary">Edit</button>
+        {" "}
+        <label
+          onClick={() => editingBilling(_id, name, email, phone, paid_amount)}
+          htmlFor="my-modal-3"
+          className="btn btn-sm btn-secondary"
+        >
+          Edit
+        </label>
       </td>
       <td>
         <button

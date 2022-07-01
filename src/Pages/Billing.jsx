@@ -12,6 +12,8 @@ const BillingList = () => {
   const { user, setPaidTotal } = useContext(AuthContext);
   const [billings, setBillings] = useState([]);
   const [searchedBillings, setSearchedBillings] = useState([]);
+  const [isUpdateForm, setIsUpdateForm] = useState(false);
+  const [oldData, setOldData] = useState({});
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
@@ -87,6 +89,15 @@ const BillingList = () => {
     setSearchedBillings(filteredBilling);
   };
 
+  /* TRY TO EDIT BILLINGS DATA FROM DATABASE */
+  const editingBillings = async (id, name, email, phone, paid_amount) => {
+    const prevData = { id, name, email, phone, paid_amount };
+    if (id) {
+      setIsUpdateForm(true);
+      setOldData(prevData);
+    }
+  };
+
   return (
     <section id="billing" className="p-10 ">
       <div className="container mx-auto font-poppins shadow p-5 rounded">
@@ -112,6 +123,7 @@ const BillingList = () => {
             </div>
             <div className="flex-none gap-2 justify-center items-center w-full sm:justify-start sm:items-start sm:w-auto">
               <label
+                onClick={() => setIsUpdateForm(false)}
                 htmlFor="my-modal-3"
                 className="btn btn-primary rounded-md"
               >
@@ -144,6 +156,7 @@ const BillingList = () => {
                         key={item._id}
                         {...item}
                         deleteBilling={deleteBilling}
+                        editingBilling={editingBillings}
                       />
                     ))}
                   </tbody>
@@ -197,7 +210,7 @@ const BillingList = () => {
           )}
         </div>
       </div>
-      <Modal refetch={refetch} />
+      <Modal refetch={refetch} isUpdateForm={isUpdateForm} oldData={oldData} />
     </section>
   );
 };
