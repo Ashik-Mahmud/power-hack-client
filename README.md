@@ -2,6 +2,8 @@
 
 This is Power hack Application using MERN Technologies
 
+## Live Link <https://power-hack-client.netlify.app>
+
 ## Using Technologies
 
 - REACT JS
@@ -20,6 +22,13 @@ This is Power hack Application using MERN Technologies
 - And also can edit, delete with niche pagination's.
 
 ## Features
+
+## Necessary Links
+
+- [Client Link] (https://github.com/Ashik-Mahmud/power-hack-client)
+- [Client Live Link](https://power-hack-client.netlify.app/)
+- [Server Link] (https://github.com/Ashik-Mahmud/power-hack-server)
+- [Server Live Link] (https://power-hack-server.herokuapp.com/)
 
 ## Preview Screenshot
 
