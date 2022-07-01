@@ -12,28 +12,31 @@ export const AuthContext = createContext(null);
 function App() {
   const { auth, refetch, user } = useAuth();
   const [paidTotal, setPaidTotal] = useState(0);
-
+  const [isDark, setIsDark] = useState(false);
+  console.log(isDark);
   return (
     <>
-      <Toaster />
-      <AuthContext.Provider
-        value={{ auth, user, refetch, setPaidTotal, paidTotal }}
-      >
-        <Header />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <RequireAuth>
-                <Billing />
-              </RequireAuth>
-            }
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-        <Footer />
-      </AuthContext.Provider>
+      <section data-theme={isDark ? "night" : "lofi"}>
+        <Toaster />
+        <AuthContext.Provider
+          value={{ auth, user, refetch, setPaidTotal, paidTotal, setIsDark }}
+        >
+          <Header />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <RequireAuth>
+                  <Billing />
+                </RequireAuth>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+          <Footer />
+        </AuthContext.Provider>
+      </section>
     </>
   );
 }

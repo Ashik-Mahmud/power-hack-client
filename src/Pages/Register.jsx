@@ -62,7 +62,7 @@ const Register = () => {
     >
       <form
         onSubmit={handleRegisterForm}
-        className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded"
+        className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-300 rounded"
       >
         <div className="card-body">
           <h3 className="text-lg font-poppins font-semibold">

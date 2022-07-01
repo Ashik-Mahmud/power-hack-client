@@ -97,7 +97,7 @@ const Modal = ({ refetch, isUpdateForm, oldData }) => {
       paid_amount: parseInt(paidAmount),
     };
     await fetch(
-      `http://localhost:5000/update-billing?id=${oldData.id}&&email=${oldData.email}`,
+      `http://localhost:5000/update-billing?id=${oldData.id}&&email=${user.email}`,
       {
         method: "PATCH",
         headers: {
@@ -109,6 +109,7 @@ const Modal = ({ refetch, isUpdateForm, oldData }) => {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.success) {
           refetch();
           toast.success(data.message);

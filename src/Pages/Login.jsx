@@ -55,7 +55,7 @@ const Login = () => {
     >
       <form
         onSubmit={handleLoginForm}
-        className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded-lg"
+        className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-300 rounded-lg"
       >
         <div className="card-body">
           <h3 className="text-lg font-poppins font-semibold">

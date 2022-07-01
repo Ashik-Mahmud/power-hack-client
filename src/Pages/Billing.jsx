@@ -78,7 +78,6 @@ const BillingList = () => {
 
   /* SEARCH BILLING USING FULL NAME, EMAIL, PHONE NUMBER */
   const handleSearch = async (event) => {
-    console.log(event.target.value);
     const searchValue = event.target.value.toLowerCase();
     const filteredBilling = billings.filter(
       (item) =>
@@ -106,7 +105,7 @@ const BillingList = () => {
           <span>Here you will get all the billing list.</span>
         </div>
         {/* Billing Header  */}
-        <div className="header bg-slate-100 rounded-md">
+        <div className="header bg-base-300 rounded-md">
           <div className="flex-wrap gap-4 navbar">
             <div className="sm:flex-1 flex-col sm:flex-row w-full">
               <a href="/" className="btn btn-ghost normal-case text-xl mr-3">
