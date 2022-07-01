@@ -1,15 +1,32 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../App";
 import BillingRow from "../Components/BillingRow";
 import Modal from "./../Components/Modal";
 const BillingList = () => {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
       navigate("/login");
     }
   }, [navigate]);
+
+  /* Getting the list of billing items based on Users */
+
+  const { data, isLoading, error } = useQuery(
+    "billingsData",
+    async () =>
+      await fetch(`http://localhost:5000/billing-list?email=${user.email}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }).then((res) => res.json())
+  );
+
+  console.log(data);
 
   return (
     <section id="billing" className="p-10 ">
@@ -45,57 +62,65 @@ const BillingList = () => {
         </div>
         {/* Billing Header end */}
         <div className="overflow-x-auto my-6">
-          <table className="table w-full table-compact">
-            <thead>
-              <tr>
-                <th>Billing ID</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th width="150">Paid Amount</th>
-                <th width="80">Edit</th>
-                <th width="80">Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <BillingRow />
-              <BillingRow />
-              <BillingRow />
-              <BillingRow />
-              <BillingRow />
-              <BillingRow />
-              <BillingRow />
-              <BillingRow />
-              <BillingRow />
-              <BillingRow />
-            </tbody>
-          </table>
-          <div className="pagination mt-5 flex justify-end items-center gap-1 pt-4">
-            <button className="btn btn-square btn-sm btn-primary hover:text-white">
-              1
-            </button>
-            <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
-              2
-            </button>
-            <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
-              3
-            </button>
-            <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
-              4
-            </button>
-            <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
-              5
-            </button>
-            <select
-              name=""
-              className="btn btn-sm btn-outline hover:bg-white hover:text-black active:outline-none focus:outline-none"
-              id=""
-            >
-              <option value="10">10</option>
-              <option value="10">20</option>
-              <option value="10">30</option>
-            </select>
-          </div>
+          {!isLoading ? (
+            data?.data?.length > 0 ? (
+              <>
+                {" "}
+                <table className="table w-full table-compact">
+                  <thead>
+                    <tr>
+                      <th>Billing ID</th>
+                      <th>Full Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th width="150">Paid Amount</th>
+                      <th width="80">Edit</th>
+                      <th width="80">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data?.data?.map((item, index) => (
+                      <BillingRow key={item._id} {...item} />
+                    ))}
+                  </tbody>
+                </table>
+                <div className="pagination mt-5 flex justify-end items-center gap-1 pt-4">
+                  <button className="btn btn-square btn-sm btn-primary hover:text-white">
+                    1
+                  </button>
+                  <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
+                    2
+                  </button>
+                  <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
+                    3
+                  </button>
+                  <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
+                    4
+                  </button>
+                  <button className="btn btn-square btn-sm btn-outline text-black hover:text-white">
+                    5
+                  </button>
+                  <select
+                    name=""
+                    className="btn btn-sm btn-outline hover:bg-white hover:text-black active:outline-none focus:outline-none"
+                    id=""
+                  >
+                    <option value="10">10</option>
+                    <option value="10">20</option>
+                    <option value="10">30</option>
+                  </select>
+                </div>
+              </>
+            ) : (
+              <div className="text-center py-10">
+                <h3 className="text-2xl">No Billings Found yet.</h3>
+              </div>
+            )
+          ) : (
+            <div className="py-5 text-center">
+              <h3 className="text-xl font-bold">Loading...</h3>
+            </div>
+          )}
         </div>
       </div>
       <Modal />

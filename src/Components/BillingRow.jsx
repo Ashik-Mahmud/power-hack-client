@@ -1,11 +1,11 @@
-const BillingRow = () => {
+const BillingRow = ({ _id, name, email, phone, paid_amount }) => {
   return (
     <tr>
-      <th>15354544</th>
-      <td>Cy Ganderton</td>
-      <td>Q@gmail.com</td>
-      <td>017874875487</td>
-      <td>44554</td>
+      <th>{_id || "Loading..."}</th>
+      <td>{name || "Loading..."}</td>
+      <td>{email || "Loading..."}</td>
+      <td>{phone || "Loading..."}</td>
+      <td>{paid_amount || "Loading..."}</td>
       <td>
         <button className="btn btn-sm btn-secondary">Edit</button>
       </td>
