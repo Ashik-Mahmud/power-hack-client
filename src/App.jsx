@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
 import RequireAuth from "./Auth/RequireAuth";
@@ -11,11 +11,14 @@ import Header from "./Shared/Header";
 export const AuthContext = createContext(null);
 function App() {
   const { auth, refetch, user } = useAuth();
+  const [paidTotal, setPaidTotal] = useState(0);
 
   return (
     <>
       <Toaster />
-      <AuthContext.Provider value={{ auth, user, refetch }}>
+      <AuthContext.Provider
+        value={{ auth, user, refetch, setPaidTotal, paidTotal }}
+      >
         <Header />
         <Routes>
           <Route

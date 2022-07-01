@@ -55,9 +55,9 @@ const Modal = ({ refetch }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          refetch();
           toast.success(data.message);
           event.target.reset();
-          refetch();
         }
       });
   };

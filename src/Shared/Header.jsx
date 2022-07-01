@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useContext } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../App";
 
 const Header = () => {
-  const navigate = useNavigate();
-  const { auth, user, refetch } = useContext(AuthContext);
+  const { auth, user, refetch, paidTotal } = useContext(AuthContext);
 
   /* Handle Log Out  */
   const handleLogOut = async () => {
@@ -38,7 +37,7 @@ const Header = () => {
               <div className="total-paid bg-primary text-white px-2 py-1 rounded-md">
                 Total Paid{" "}
                 <span className="font-raleway font-bold normal-case text-xl">
-                  100
+                  {paidTotal || "000"}
                 </span>
               </div>
             )}

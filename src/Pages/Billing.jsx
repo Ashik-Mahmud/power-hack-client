@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,8 @@ import BillingRow from "../Components/BillingRow";
 import Modal from "./../Components/Modal";
 const BillingList = () => {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user, setPaidTotal } = useContext(AuthContext);
+  const [billings, setBillings] = useState([]);
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
@@ -48,10 +49,11 @@ const BillingList = () => {
           .catch((err) => toast.error(err.message));
       }
     });
-  }; /* Getting the list of billing items based on Users */
+  };
 
+  /* Getting the list of billing items based on Users */
   const { data, isLoading, refetch } = useQuery(
-    "billingsData",
+    ["billingsData", user],
     async () =>
       await fetch(`http://localhost:5000/billing-list?email=${user.email}`, {
         headers: {
@@ -59,7 +61,16 @@ const BillingList = () => {
         },
       }).then((res) => res.json())
   );
-  console.log(data, user.email);
+
+  useEffect(() => {
+    setBillings(data?.data);
+    /* Paid Total */
+    const paidTotal = data?.data.reduce(
+      (acc, item) => acc + item.paid_amount,
+      0
+    );
+    setPaidTotal(paidTotal);
+  }, [data, setPaidTotal]);
 
   return (
     <section id="billing" className="p-10 ">
@@ -122,8 +133,8 @@ const BillingList = () => {
                   </tbody>
                 </table>
                 <div
-                  className={`pagination mt-5  justify-end items-center gap-1 pt-4 hidden ${
-                    data?.data?.length > 10 && "flex"
+                  className={`pagination mt-5  justify-end items-center gap-1 pt-4  ${
+                    data?.data?.length > 10 ? "flex" : "hidden"
                   }`}
                 >
                   <button className="btn btn-square btn-sm btn-primary hover:text-white">
