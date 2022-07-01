@@ -83,9 +83,12 @@ const Login = () => {
               name="password"
             />
             <label className="label">
-              <a href="/" className="label-text-alt link link-hover">
+              <span
+                onClick={() => alert("Upcoming Features")}
+                className="label-text-alt link link-hover"
+              >
                 Forgot password?
-              </a>
+              </span>
             </label>
           </div>
           <div className="form-control mt-6">

@@ -36,7 +36,7 @@ const Register = () => {
       email,
       password,
     };
-    console.log(registerData);
+
     await axios
       .post("http://localhost:5000/users/register", registerData)
       .then((res) => {
