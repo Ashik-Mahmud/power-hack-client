@@ -39,7 +39,7 @@ const Register = () => {
 
     await axios
       .post(
-        "https://power-hack-storage.herokuapp.com/users/register",
+        "https://power-hack-server.onrender.com/users/register",
         registerData
       )
       .then((res) => {

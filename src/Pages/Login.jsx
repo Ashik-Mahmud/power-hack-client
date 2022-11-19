@@ -24,14 +24,14 @@ const Login = () => {
     /* Call function for login */
     await axios
       .get(
-        `https://power-hack-storage.herokuapp.com/users/login?email=${email}&&password=${password}`
+        `https://power-hack-server.onrender.com/users/login?email=${email}&&password=${password}`
       )
       .then((res) => {
         const { token, email, success, message } = res.data;
         if (success) {
           axios
             .patch(
-              `https://power-hack-storage.herokuapp.com/users/register?email=${email}`,
+              `https://power-hack-server.onrender.com/users/register?email=${email}`,
               {
                 isLogin: true,
               }

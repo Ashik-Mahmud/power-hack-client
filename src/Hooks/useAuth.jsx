@@ -7,7 +7,7 @@ const useAuth = () => {
   const { isLoading, data, refetch } = useQuery(
     "AuthData",
     async () =>
-      await fetch(`https://power-hack-storage.herokuapp.com/users/register`, {
+      await fetch(`https://power-hack-server.onrender.com/users/register`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },

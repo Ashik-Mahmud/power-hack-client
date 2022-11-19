@@ -35,7 +35,7 @@ const BillingList = () => {
       if (result.isConfirmed) {
         axios
           .delete(
-            `https://power-hack-storage.herokuapp.com/delete-billing?id=${id}&&email=${user.email}`,
+            `https://power-hack-server.onrender.com/delete-billing?id=${id}&&email=${user.email}`,
             {
               headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -59,7 +59,7 @@ const BillingList = () => {
     ["billingsData", user],
     async () =>
       await fetch(
-        `https://power-hack-storage.herokuapp.com/billing-list?email=${user.email}`,
+        `https://power-hack-server.onrender.com/billing-list?email=${user.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("accessToken")}`,

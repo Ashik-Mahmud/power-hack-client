@@ -11,7 +11,7 @@ const Header = () => {
   const handleLogOut = async () => {
     axios
       .patch(
-        `https://power-hack-storage.herokuapp.com/users/register?email=${user?.email}`,
+        `https://power-hack-server.onrender.com/users/register?email=${user?.email}`,
         {
           isLogin: false,
         }
